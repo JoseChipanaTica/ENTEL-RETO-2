@@ -23,6 +23,17 @@ plateau = keras.callbacks.ReduceLROnPlateau(monitor='val_root_mean_squared_error
 
 
 def data(x_train_data, y_train, t_idx, v_idx, model_type, n=0):
+    """
+    Convierte los datos de entrenamiento en tensores para aliminar a los modelos
+
+    :param x_train_data:
+    :param y_train:
+    :param t_idx:
+    :param v_idx:
+    :param model_type:
+    :param n:
+    :return:
+    """
     if model_type == 'mlp':
         _x_train, _x_valid = x_train_data[t_idx], x_train_data[v_idx]
 
@@ -53,6 +64,8 @@ def data(x_train_data, y_train, t_idx, v_idx, model_type, n=0):
 
 def training(model_type, x_train_data, y_train, n):
     """
+    Entrenamiento de los modelos por cada tipo y número de variables temporales
+
     :param n: n define the number of column to use for lstm or cnn
     :param y_train: numpy array
     :param x_train_data: numpy array

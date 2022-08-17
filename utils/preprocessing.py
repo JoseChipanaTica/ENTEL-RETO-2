@@ -2,6 +2,14 @@ from sklearn.preprocessing import RobustScaler
 
 
 def data_sequence_to_models(x_train, x_test, n):
+    """
+    Remove las variables correlacionadas y estadariza para una mejor precisión con los modelos de Deep Learning
+
+    :param x_train:
+    :param x_test:
+    :param n: si n es mayor a 0 entonces las variables anteriores a n no contaran para ver la correlación y ser removidas
+    :return: x_train, x_test con las variables importantes
+    """
     correlated_features = set()
     correlation_matrix = x_train.iloc[:, n:].corr()
 

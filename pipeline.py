@@ -23,6 +23,11 @@ df_sub = pd.read_csv(CONFIG['SAMPLE_SUBMISSION'])
 
 
 def model_lstm_based_40():
+    """
+    Ejecuta el modelo de LSTM con 40 variables temporales
+
+    :return: none
+    """
     n = 40
     x_base = 100
 
@@ -41,6 +46,11 @@ def model_lstm_based_40():
 
 
 def model_lstm_based_20():
+    """
+    Ejecuta un modelo LSTM con 20 variables temporales
+
+    :return:
+    """
     n = 20
     x_base = 100
 
@@ -68,6 +78,10 @@ def model_lstm_based_20():
 
 
 def model_lstm_based_10():
+    """
+    Ejecuta un modelo LSTM con 10 variables temporales
+    :return:
+    """
     n = 10
     x_base = 100
 
@@ -97,6 +111,10 @@ def model_lstm_based_10():
 
 
 def model_mlp_based_40():
+    """
+    Ejecuta un modelo MLP con las 40 variables temporales
+    :return:
+    """
     n = 0
     x_base = 100
 
@@ -124,6 +142,10 @@ def model_mlp_based_40():
 
 
 def model_mlp_based_20():
+    """
+    Ejecuta un modelo MLP con 20 variables temporales
+    :return:
+    """
     n = 0
     x_base = 100
 
@@ -153,6 +175,10 @@ def model_mlp_based_20():
 
 
 def model_mlp_based_10():
+    """
+    Ejecuta un modelo MLP con 10 variables temporales
+    :return:
+    """
     n = 0
     x_base = 100
 
@@ -171,6 +197,15 @@ def model_mlp_based_10():
 
 
 def lstm_test_csv(x_test, models, n, name):
+    """
+    Ejecuta los datos test en los modelos creados
+
+    :param x_test:
+    :param models:
+    :param n:
+    :param name:
+    :return:
+    """
     predictions = []
 
     x_test_features = x_test[:, :n]
@@ -188,6 +223,15 @@ def lstm_test_csv(x_test, models, n, name):
 
 
 def mlp_test_csv(x_test, models, n, name):
+    """
+    Ejecuta los datos test en los modelos creados
+
+    :param x_test:
+    :param models:
+    :param n:
+    :param name:
+    :return:
+    """
     predictions = []
     for model in models:
         _pred = model.predict([x_test])
@@ -199,6 +243,13 @@ def mlp_test_csv(x_test, models, n, name):
 
 
 def result_to_csv(predictions, name):
+    """
+    Crea un csv con los resultados
+
+    :param predictions: array
+    :param name: str
+    :return:
+    """
     df_submission = pd.merge(df_train.iloc[:, :5],
                              pd.DataFrame(predictions),
                              how='inner',

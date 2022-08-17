@@ -2,6 +2,13 @@ from tensorflow import keras
 
 
 def lstm(l_features, l_extras_features):
+    """
+    Crea una arquitectura de modelo en base a capas LSTM
+
+    :param l_features: tupla de dimensión: (x, y) x referencia a la cantidad de tiempo, y a la cantidad de características
+    :param l_extras_features: dimensión o número de variables de otras características
+    :return: tensorflow model
+    """
     features = keras.layers.Input(shape=l_features)
     tabular = keras.layers.Input(shape=l_extras_features)
 
@@ -34,6 +41,12 @@ def lstm(l_features, l_extras_features):
 
 
 def mlp(l_extras_features):
+    """
+    Crea una arquitectura de modelo basado en Multilayer Perceptron
+
+    :param l_extras_features: Cantidad o número de variables de entrada que tendrá el modelo
+    :return: tensorflow model
+    """
     tabular = keras.layers.Input(shape=l_extras_features)
 
     for n_hidden in [1024, 512, 256, 128, 64, 32]:

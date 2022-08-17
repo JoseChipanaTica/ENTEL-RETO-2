@@ -3,6 +3,14 @@ import pandas as pd
 
 
 def featuring(df_train, df, x_base):
+    """
+    Ingenería de datos. Crea nuevas variables en base a la serie de tiempo
+
+    :param df_train: dataframe con todo los datos
+    :param df: dataframe que contiene solo la cantidad de variables temporales
+    :param x_base: valor máximo a reemplazar
+    :return: dataframe con todo los nuevos datos
+    """
     df = pd.concat([df_train.iloc[:, :5], df], axis=1)
 
     df_z_punto_venta = df.groupby(['Z_PUNTO_VENTA'])[df.iloc[:, 5:].columns].transform('max')
