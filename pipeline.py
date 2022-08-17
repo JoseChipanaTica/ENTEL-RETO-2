@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-from featuring import featuring
-from preprocessing import data_sequence_to_models
-from training import training
+from utils.featuring import featuring
+from utils.preprocessing import data_sequence_to_models
+from utils.training import training
 
 CONFIG_KAGGLE = {
     'TRAIN_PATH': '/kaggle/input/datathon-entel-2022-reto2/train.csv',
@@ -21,8 +21,6 @@ df_train = pd.read_csv(CONFIG['TRAIN_PATH'])
 df_test = pd.read_csv(CONFIG['TEST_PATH'])
 df_sub = pd.read_csv(CONFIG['SAMPLE_SUBMISSION'])
 
-print(__name__)
-
 
 def model_lstm_based_40():
     n = 40
@@ -39,7 +37,7 @@ def model_lstm_based_40():
 
     models = training('lstm', x_train_data, y_train, n)
 
-    lstm_test_csv(x_test, models, n, 'lstm_40')
+    lstm_test_csv(x_test_data, models, n, 'lstm_40')
 
 
 def model_lstm_based_20():
@@ -66,7 +64,7 @@ def model_lstm_based_20():
 
     models = training('lstm', x_train_data, y_train, n)
 
-    lstm_test_csv(x_test, models, n, 'lstm_20')
+    lstm_test_csv(x_test_data, models, n, 'lstm_20')
 
 
 def model_lstm_based_10():
@@ -95,7 +93,7 @@ def model_lstm_based_10():
 
     models = training('lstm', x_train_data, y_train, n)
 
-    lstm_test_csv(x_test, models, n, 'lstm_10')
+    lstm_test_csv(x_test_data, models, n, 'lstm_10')
 
 
 def model_mlp_based_40():
@@ -122,7 +120,7 @@ def model_mlp_based_40():
 
     models = training('mlp', x_train_data, y_train, n)
 
-    mlp_test_csv(x_test, models, n, 'mlp_40')
+    mlp_test_csv(x_test_data, models, n, 'mlp_40')
 
 
 def model_mlp_based_20():
@@ -151,7 +149,7 @@ def model_mlp_based_20():
 
     models = training('mlp', x_train_data, y_train, n)
 
-    mlp_test_csv(x_test, models, n, 'mlp_20')
+    mlp_test_csv(x_test_data, models, n, 'mlp_20')
 
 
 def model_mlp_based_10():
@@ -169,7 +167,7 @@ def model_mlp_based_10():
 
     models = training('mlp', x_train_data, y_train, n)
 
-    mlp_test_csv(x_test, models, n, 'mlp_10')
+    mlp_test_csv(x_test_data, models, n, 'mlp_10')
 
 
 def lstm_test_csv(x_test, models, n, name):
@@ -184,7 +182,9 @@ def lstm_test_csv(x_test, models, n, name):
         _pred = model.predict([x_test_features, x_test_extras])
         predictions.append(_pred)
 
-    result_to_csv(predictions, name)
+    sub_predictions = (predictions[0] + predictions[1] + predictions[2] + predictions[3] + predictions[4]) / 5
+
+    result_to_csv(sub_predictions, name)
 
 
 def mlp_test_csv(x_test, models, n, name):
@@ -193,7 +193,9 @@ def mlp_test_csv(x_test, models, n, name):
         _pred = model.predict([x_test])
         predictions.append(_pred)
 
-    result_to_csv(predictions, name)
+    sub_predictions = (predictions[0] + predictions[1] + predictions[2] + predictions[3] + predictions[4]) / 5
+
+    result_to_csv(sub_predictions, name)
 
 
 def result_to_csv(predictions, name):
@@ -232,7 +234,7 @@ def result_to_csv(predictions, name):
 
 
 if __name__ == '__main__':
-    print('Start pipeline')
+    print('Start utils')
 
     model_lstm_based_40()
     model_lstm_based_20()
